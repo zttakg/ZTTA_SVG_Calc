@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Calculation</title>
+    <link rel="icon" href="assets/icon.png">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/index_style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="scripts/load.js"></script>
+    <script src="scripts/jquery-3.4.1.min.js"></script>
+    <script src="scripts/popper.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+</head>
+<body onload="initialize()">
+<div class="card">
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="tech-process" onchange="processSelector()">
+                        <input type="radio" name="process" value="plasma" checked> Плазменная резка<br>
+                        <input type="radio" name="process" value="laser"> Лазерная резка<br>
+                        <input type="radio" name="process" value="gas"> Газовая резка<br>
+                    </div>
+                </div>
+                <div class="col-sm">
+                        <span class="btn btn-secondary btn-file">
+                            Загрузить файл<input type="file" id="input" multiple accept="image/svg+xml" onchange="fileLoading()">
+                        </span>
+                </div>
+                <div class="col-sm">
+                    <button type="button" id="calc_this" class="btn btn-primary" onclick="calculation()" style="visibility: hidden">Посчитать стоимость</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" id="load_result"></div>
+</body>
+</html>

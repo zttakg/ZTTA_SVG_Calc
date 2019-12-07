@@ -1,0 +1,26 @@
+{
+	"constants": {
+		"profit_ratio": "1.0",
+		"machine_prepare_time": "0.5",
+		"material_prepare_cost": "150.0",
+		"programming_cost": "250.0",
+		"programming_time": "30",
+		"tech_process": [
+			{
+				"process": "plasma",
+				"expandable_materials_cost": "306.0",
+				"basic_cost": "271.0"
+			},
+			{
+				"process": "laser",
+				"expandable_materials_cost": "51.0",
+				"basic_cost": "602.0"
+			},
+			{
+				"process": "gas",
+				"expandable_materials_cost": "10.0",
+				"basic_cost": "271.0"
+			}
+		]
+	}
+}

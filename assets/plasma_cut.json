@@ -1,0 +1,140 @@
+{
+	"plasma": [
+		{
+			"id": "CR010",
+			"thickness": "1.0",
+			"cost_per_kg": "56.0",
+			"gas_cost_per_hour": "200.0",
+			"cost_per_entry": "5.0",
+			"cut_speed": "330000"
+		},
+		{
+			"id": "CR012",
+			"thickness": "1.2",
+			"cost_per_kg": "56.0",
+			"gas_cost_per_hour": "205.0",
+			"cost_per_entry": "5.0",
+			"cut_speed": "330000"
+		},
+		{
+			"id": "CR015",
+			"thickness": "1.5",
+			"cost_per_kg": "56.0",
+			"gas_cost_per_hour": "208.0",
+			"cost_per_entry": "6.0",
+			"cut_speed": "310000"
+		},
+		{
+			"id": "HR020",
+			"thickness": "2.0",
+			"cost_per_kg": "56.0",
+			"gas_cost_per_hour": "210.0",
+			"cost_per_entry": "9.0",
+			"cut_speed": "300000"
+		},
+		{
+			"id": "HR030",
+			"thickness": "3.0",
+			"cost_per_kg": "54.0",
+			"gas_cost_per_hour": "220.0",
+			"cost_per_entry": "10.0",
+			"cut_speed": "300000"
+		},
+		{
+			"id": "HR040",
+			"thickness": "4.0",
+			"cost_per_kg": "54.0",
+			"gas_cost_per_hour": "260.0",
+			"cost_per_entry": "12.0",
+			"cut_speed": "200000"
+		},
+		{
+			"id": "HR050",
+			"thickness": "5.0",
+			"cost_per_kg": "54.0",
+			"gas_cost_per_hour": "280.0",
+			"cost_per_entry": "15.0",
+			"cut_speed": "168000"
+		},
+		{
+			"id": "HR060",
+			"thickness": "6.0",
+			"cost_per_kg": "55.0",
+			"gas_cost_per_hour": "280.0",
+			"cost_per_entry": "15.0",
+			"cut_speed": "168000"
+		},
+		{
+			"id": "CR080",
+			"thickness": "8.0",
+			"cost_per_kg": "54.0",
+			"gas_cost_per_hour": "290.0",
+			"cost_per_entry": "17.0",
+			"cut_speed": "150000"
+		},
+		{
+			"id": "CR100",
+			"thickness": "10.0",
+			"cost_per_kg": "56.0",
+			"gas_cost_per_hour": "300.0",
+			"cost_per_entry": "19.0",
+			"cut_speed": "132000"
+		},
+		{
+			"id": "CR120",
+			"thickness": "12.0",
+			"cost_per_kg": "54.0",
+			"gas_cost_per_hour": "320.0",
+			"cost_per_entry": "20.0",
+			"cut_speed": "102000"
+		},
+		{
+			"id": "CR140",
+			"thickness": "14.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "340.0",
+			"cost_per_entry": "22.0",
+			"cut_speed": "84000"
+		},
+		{
+			"id": "CR160",
+			"thickness": "16.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "400.0",
+			"cost_per_entry": "25.0",
+			"cut_speed": "66000"
+		},
+		{
+			"id": "CR180",
+			"thickness": "18.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "430.0",
+			"cost_per_entry": "29.0",
+			"cut_speed": "54000"
+		},
+		{
+			"id": "CR200",
+			"thickness": "20.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "600.0",
+			"cost_per_entry": "31.0",
+			"cut_speed": "48000"
+		},
+		{
+			"id": "CR220",
+			"thickness": "22.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "700.0",
+			"cost_per_entry": "35.0",
+			"cut_speed": "36000"
+		},
+		{
+			"id": "CR250",
+			"thickness": "25.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "1000.0",
+			"cost_per_entry": "40.0",
+			"cut_speed": "31800"
+		}
+	]
+}

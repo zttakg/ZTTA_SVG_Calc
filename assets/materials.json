@@ -1,0 +1,555 @@
+{
+  "materials":[
+    {
+      "m_id": "CR010",
+      "density": "7850",
+      "thickness": "1.0",
+      "cost_per_kg": "56",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "1",
+          "gas_cost_per_hour": "200",
+          "cut_speed": "330000",
+          "cost_per_entry": "5"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "0.5",
+          "gas_cost_per_hour": "200",
+          "cut_speed": "1230000",
+          "cost_per_entry": "5"
+        },
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+    {
+      "m_id": "CR012",
+      "density": "7850",
+      "thickness": "1.2",
+      "cost_per_kg": "56",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "1",
+          "gas_cost_per_hour": "205",
+          "cut_speed": "330000",
+          "cost_per_entry": "5"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "0.5",
+          "gas_cost_per_hour": "205",
+          "cut_speed": "1230000",
+          "cost_per_entry": "5"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+    {
+      "m_id": "CR015",
+      "density": "7850",
+      "thickness": "1.5",
+      "cost_per_kg": "56",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "1.2",
+          "gas_cost_per_hour": "208",
+          "cut_speed": "310000",
+          "cost_per_entry": "6"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "0.7",
+          "gas_cost_per_hour": "208",
+          "cut_speed": "1200000",
+          "cost_per_entry": "5"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+    {
+      "m_id": "HR020",
+      "density": "7850",
+      "thickness": "2.0",
+      "cost_per_kg": "56",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "3.0",
+          "gas_cost_per_hour": "210",
+          "cut_speed": "300000",
+          "cost_per_entry": "9"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "0.8",
+          "gas_cost_per_hour": "210",
+          "cut_speed": "600000",
+          "cost_per_entry": "5"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR030",
+      "density": "7850",
+      "thickness": "3.0",
+      "cost_per_kg": "54",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "4.0",
+          "gas_cost_per_hour": "220",
+          "cut_speed": "300000",
+          "cost_per_entry": "10"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "1.5",
+          "gas_cost_per_hour": "220",
+          "cut_speed": "240000",
+          "cost_per_entry": "5"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR040",
+      "density": "7850",
+      "thickness": "4.0",
+      "cost_per_kg": "54",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "6.0",
+          "gas_cost_per_hour": "260",
+          "cut_speed": "200000",
+          "cost_per_entry": "12"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "1.8",
+          "gas_cost_per_hour": "500",
+          "cut_speed": "168000",
+          "cost_per_entry": "20"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR050",
+      "density": "7850",
+      "thickness": "5.0",
+      "cost_per_kg": "54",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "9.0",
+          "gas_cost_per_hour": "280",
+          "cut_speed": "168000",
+          "cost_per_entry": "15"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "2.5",
+          "gas_cost_per_hour": "560",
+          "cut_speed": "138000",
+          "cost_per_entry": "40"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR060",
+      "density": "7850",
+      "thickness": "6.0",
+      "cost_per_kg": "55",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "9.0",
+          "gas_cost_per_hour": "280",
+          "cut_speed": "168000",
+          "cost_per_entry": "15"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "2.5",
+          "gas_cost_per_hour": "560",
+          "cut_speed": "138000",
+          "cost_per_entry": "40"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR080",
+      "density": "7850",
+      "thickness": "8.0",
+      "cost_per_kg": "54",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "12.0",
+          "gas_cost_per_hour": "290",
+          "cut_speed": "150000",
+          "cost_per_entry": "17"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "3.0",
+          "gas_cost_per_hour": "560",
+          "cut_speed": "84000",
+          "cost_per_entry": "50"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR100",
+      "density": "7850",
+      "thickness": "10.0",
+      "cost_per_kg": "56",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "15.0",
+          "gas_cost_per_hour": "300",
+          "cut_speed": "132000",
+          "cost_per_entry": "19"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "4.0",
+          "gas_cost_per_hour": "600",
+          "cut_speed": "66000",
+          "cost_per_entry": "60"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR120",
+      "density": "7850",
+      "thickness": "12.0",
+      "cost_per_kg": "54",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "18.0",
+          "gas_cost_per_hour": "320",
+          "cut_speed": "102000",
+          "cost_per_entry": "20"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "6.0",
+          "gas_cost_per_hour": "650",
+          "cut_speed": "66000",
+          "cost_per_entry": "70"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR140",
+      "density": "7850",
+      "thickness": "14.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "21.0",
+          "gas_cost_per_hour": "340",
+          "cut_speed": "84000",
+          "cost_per_entry": "22"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "7.0",
+          "gas_cost_per_hour": "800",
+          "cut_speed": "51000",
+          "cost_per_entry": "80"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR160",
+      "density": "7850",
+      "thickness": "16.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "24.0",
+          "gas_cost_per_hour": "400",
+          "cut_speed": "66000",
+          "cost_per_entry": "25"
+		},
+		{
+          "tp": "laser",
+          "min_hole": "8.0",
+          "gas_cost_per_hour": "1000",
+          "cut_speed": "48000",
+          "cost_per_entry": "90"
+		},
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR180",
+      "density": "7850",
+      "thickness": "18.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "27.0",
+          "gas_cost_per_hour": "430",
+          "cut_speed": "54000",
+          "cost_per_entry": "29"
+		},
+        {
+          "tp": "laser",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR200",
+      "density": "7850",
+      "thickness": "20.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "30.0",
+          "gas_cost_per_hour": "600",
+          "cut_speed": "48000",
+          "cost_per_entry": "31"
+		},
+        {
+          "tp": "laser",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR220",
+      "density": "7850",
+      "thickness": "22.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "32.0",
+          "gas_cost_per_hour": "700",
+          "cut_speed": "36000",
+          "cost_per_entry": "35"
+		},
+        {
+          "tp": "laser",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+        {
+          "tp": "gas",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        }
+       ]
+    },
+	{
+      "m_id": "HR250",
+      "density": "7850",
+      "thickness": "25.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+		{
+          "tp": "plasma",
+          "min_hole": "35.0",
+          "gas_cost_per_hour": "1000",
+          "cut_speed": "31800",
+          "cost_per_entry": "40"
+		},
+        {
+          "tp": "laser",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+		{
+          "tp": "gas",
+          "min_hole": "35.0",
+          "gas_cost_per_hour": "400",
+          "cut_speed": "28000",
+          "cost_per_entry": "28"
+		}
+       ]
+    },
+	{
+      "m_id": "HR300",
+      "density": "7850",
+      "thickness": "30.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+        {
+          "tp": "plasma",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+        {
+          "tp": "laser",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+		{
+          "tp": "gas",
+          "min_hole": "45.0",
+          "gas_cost_per_hour": "450",
+          "cut_speed": "20000",
+          "cost_per_entry": "33"
+		}
+       ]
+    },
+	{
+      "m_id": "HR400",
+      "density": "7850",
+      "thickness": "40.0",
+      "cost_per_kg": "58",
+      "tech_processes": [
+        {
+          "tp": "plasma",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+        {
+          "tp": "laser",
+          "min_hole": "",
+          "gas_cost_per_hour": "",
+          "cut_speed": "",
+          "cost_per_entry": ""
+        },
+		{
+          "tp": "gas",
+          "min_hole": "50.0",
+          "gas_cost_per_hour": "500",
+          "cut_speed": "9000",
+          "cost_per_entry": "38"
+		}
+       ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+	"gas": [
+		{
+			"id": "CR250",
+			"thickness": "25.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "400.0",
+			"cost_per_entry": "28.0",
+			"cut_speed": "28000"
+		},
+		{
+			"id": "CR300",
+			"thickness": "25.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "450.0",
+			"cost_per_entry": "33.0",
+			"cut_speed": "20000"
+		},
+		{
+			"id": "CR400",
+			"thickness": "25.0",
+			"cost_per_kg": "58.0",
+			"gas_cost_per_hour": "500.0",
+			"cost_per_entry": "38.0",
+			"cut_speed": "9000"
+		}
+	]
+}
