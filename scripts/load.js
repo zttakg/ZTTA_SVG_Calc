@@ -17,15 +17,6 @@ let calcMaterial;
 
 let flag = false;
 
-function isFileAPISupported() {
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        return true;
-    } else {
-        console.log('The File APIs are not fully supported in this browser.');
-        return false;
-    }
-}
-
 function initialize() {
     loadJson(materialList, function (response) {
         let raw_array  = JSON.parse(response);
@@ -43,6 +34,9 @@ function processSelector() {
     for (let i = 0; i < selected_process.length; i++) {
         if (selected_process[i].checked) {
             cur_tech_process = selected_process[i].value;
+            if (flag === true) {
+                refreshSelectors();
+            }
         }
     }
 }
@@ -138,7 +132,7 @@ function fileProcessing() {
         let list1 = document.createElement("ul");
         list1.setAttribute("id", "left_list");
 
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < 6; j++) {
             let list_item = document.createElement("li");
             list_item.setAttribute("class", "d-flex justify-content-between align-items-center left-params");
             if (j === 0) {
@@ -154,18 +148,21 @@ function fileProcessing() {
                 list_item.innerHTML = "Кол-во прожигов: <span>" + user_details[i].num_of_entries + "</span>";
             }
             if (j === 4) {
+                list_item.innerHTML = "Общий вес остатков: ";
+            }
+            if (j === 5) {
                 list_item.innerHTML = "Материал: ";
                 list_item.appendChild(buildSelector());
                 list_item.classList.add("mt-1");
             }
-            list_item.setAttribute("id", "left" + i);
+            list_item.setAttribute("id", "left" + j);
             list1.appendChild(list_item);
         }
 
         let list2 = document.createElement("ul");
         list2.setAttribute("id", "right_list");
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             let list_item = document.createElement("li");
             list_item.setAttribute("class", "d-flex justify-content-between align-items-center right-params");
             if (i === 0) {
@@ -181,6 +178,9 @@ function fileProcessing() {
                 list_item.innerText = "Общая стоимость: ";
             }
             if (i === 4) {
+                list_item.innerText = "Стоимость остатков: ";
+            }
+            if (i === 5) {
                 let amount = document.createElement('input');
                 amount.type = "number";
                 amount.min = "1";
@@ -217,6 +217,23 @@ function buildSelector() {
         sel.appendChild(opt);
     }
     return sel;
+}
+
+function refreshSelectors() {
+    let res = document.getElementById("load_result");
+    for (let i = 0; i < user_details.length; i++) {
+        let right_elements =  res.children[i].getElementsByClassName("right-params");
+        let left_elements =  res.children[i].getElementsByClassName("left-params");
+        right_elements[0].innerHTML = "Вес 1 шт.: ";
+        right_elements[1].innerHTML = "Общий вес: ";
+        right_elements[2].innerHTML = "Стоимость за шт: ";
+        right_elements[3].innerHTML = "Общая стоимость: ";
+        right_elements[4].innerHTML = "Стоимость остатков: ";
+        left_elements[4].innerHTML = "Общий вес остатков: ";
+        left_elements[5].removeChild(left_elements[5].childNodes[0]);
+        left_elements[5].innerHTML = "Материал: ";
+        left_elements[5].appendChild(buildSelector());
+    }
 }
 
 function loadJson(filename, callback) {
@@ -264,11 +281,14 @@ function calculation() {
 
         let total_cost = parseInt(formula(i, selected_steel));
         let single_cost = parseInt(total_cost / user_details[i].get_amount());
+        let remains_cost = parseInt(calculate_remains(i, selected_steel));
 
         right_elements[0].innerHTML = "Вес 1 шт.: <span>" + parseFloat(user_details[i].single_weight()).toFixed(3) + " кг.</span>";
         right_elements[1].innerHTML = "Общий вес: <span>" + parseFloat(user_details[i].total_weight()).toFixed(3) + " кг.</span>";
         right_elements[2].innerHTML = "Стоимость за шт: <span class='badge badge-pill badge-primary'>" + single_cost + " сом</span>";
         right_elements[3].innerHTML = "Общая стоимость: <span class='badge badge-pill badge-primary'>" + total_cost + " сом</span>";
+        right_elements[4].innerHTML = "Стоимость остатков: <span class='badge badge-pill badge-warning'>" + remains_cost + " сом</span>";
+        left_elements[4].innerHTML = "Общий вес остатков: <span>" + parseFloat(user_details[i].remains_weight()).toFixed(3) + " кг.</span>"
     }
 }
 
@@ -323,6 +343,10 @@ function formula(index, selected_steel) {
     return user_details[index].get_amount() * (user_details[index].single_weight() * parseFloat(calcMaterial.material_cost_kg(selected_steel)) + user_details[index].get_cut_length() / parseFloat(calcMaterial.material_cut_speed(selected_steel)) * (parseFloat(calcConsts.cost_of_expandables()) + parseFloat(calcMaterial.material_gas_cost_per_hour(selected_steel))) + user_details[index].get_num_of_entries() * parseFloat(calcMaterial.material_cost_per_entry(selected_steel))) + parseFloat(calcConsts.cost_basic()) * parseFloat(calcConsts.profit()) * (user_details[index].get_cut_length() / parseFloat(calcMaterial.material_cut_speed(selected_steel)) * user_details[index].get_amount() + parseFloat(calcConsts.prepare_time())) + parseFloat(calcConsts.cost_of_programming()) + parseFloat(calcConsts.prepare_material_cost());
 }
 
+function calculate_remains(index, selected_steel) {
+    return user_details[index].remains_weight() * parseFloat(calcMaterial.material_cost_kg(selected_steel));
+}
+
 class UserFile {
     constructor(name, width, height, entries, area, cut_length, image) {
         this.file_name = name;
@@ -360,8 +384,8 @@ class UserFile {
         return parseFloat(this.file_cut_length) / 1000;
     }
 
-    remains_area() {
-        return (parseFloat(this.file_width) * parseFloat(this.file_height)) / 1000000 - parseFloat(this.file_area);
+    remains_weight() {
+        return ((parseFloat(this.file_width) * parseFloat(this.file_height)) / 1000000 - parseFloat(this.file_area)) * parseFloat(this.file_density) * (parseFloat(this.file_thickness) / 1000) * parseFloat(this.file_amount);
     }
 
     single_weight() {
