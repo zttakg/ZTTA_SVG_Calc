@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
     <title>Parameters</title>
+    <link rel="icon" href="../assets/icon.png">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../css/main.css">
@@ -13,6 +14,10 @@
     <script src="../scripts/dataTables.bootstrap4.min.js"></script>
 </head>
 <body onload="startPoint()">
+    <div class="bg-light mt-2 clearfix">
+        <button type="button" id="save_changes" class="btn btn-primary">Сохранить изменения</button>
+        <button type="button" id="undo_changes" class="btn btn-secondary">Отменить изменения</button>
+    </div>
     <div id="main_table"></div>
 </body>
 </html>

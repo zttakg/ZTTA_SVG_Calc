@@ -136,34 +136,38 @@ function fileProcessing() {
         column2.classList.add("col");
 
         let list1 = document.createElement("ul");
+        list1.setAttribute("id", "left_list");
 
         for (let j = 0; j < 5; j++) {
             let list_item = document.createElement("li");
-            list_item.setAttribute("class", "d-flex justify-content-between align-items-center");
+            list_item.setAttribute("class", "d-flex justify-content-between align-items-center left-params");
             if (j === 0) {
-                list_item.innerHTML = "Размер заготовки: <span><b>" + user_details[i].get_size() + " мм.</b></span>";
+                list_item.innerHTML = "Размер заготовки: <span>" + user_details[i].get_size() + " мм.</span>";
             }
             if (j === 1) {
-                list_item.innerHTML = "Площадь:  <span><b>" + user_details[i].file_area + " кв.м.</b></span>";
+                list_item.innerHTML = "Площадь:  <span>" + user_details[i].file_area + " кв.м.</span>";
             }
             if (j === 2) {
-                list_item.innerHTML = "Длина реза: <span><b>" + user_details[i].file_cut_length + " м.</b></span>";
+                list_item.innerHTML = "Длина реза: <span>" + user_details[i].file_cut_length + " м.</span>";
             }
             if (j === 3) {
-                list_item.innerHTML = "Кол-во прожигов: <span><b>" + user_details[i].num_of_entries + "</b></span>";
+                list_item.innerHTML = "Кол-во прожигов: <span>" + user_details[i].num_of_entries + "</span>";
             }
             if (j === 4) {
                 list_item.innerHTML = "Материал: ";
                 list_item.appendChild(buildSelector());
+                list_item.classList.add("mt-1");
             }
+            list_item.setAttribute("id", "left" + i);
             list1.appendChild(list_item);
         }
 
         let list2 = document.createElement("ul");
+        list2.setAttribute("id", "right_list");
 
         for (let i = 0; i < 5; i++) {
             let list_item = document.createElement("li");
-            list_item.setAttribute("class", "d-flex justify-content-between align-items-center");
+            list_item.setAttribute("class", "d-flex justify-content-between align-items-center right-params");
             if (i === 0) {
                 list_item.innerText = "Вес 1 шт.: ";
             }
@@ -183,7 +187,9 @@ function fileProcessing() {
                 amount.value = "1";
                 list_item.innerHTML = "Количество: ";
                 list_item.appendChild(amount);
+                list_item.classList.add("mt-1");
             }
+            list_item.setAttribute("id", "right" + i);
             list2.appendChild(list_item);
         }
 
@@ -202,7 +208,6 @@ function fileProcessing() {
     }
     document.getElementById("calc_this").style.visibility = "visible";
 }
-
 
 function buildSelector() {
     let sel = document.createElement("select");
@@ -244,23 +249,26 @@ function loadSvg(filename, callback) {
 
 function calculation() {
     let res = document.getElementById("load_result");
-    for (let i = 0; i < res.childElementCount; i++) {
-        if (res.children[i].classList.contains("item-container")) {
-            let fileName = res.children[i].getElementsByClassName("item-name")[0].innerText;
-            let selected_steel = res.children[i].getElementsByTagName("select")[0].selectedIndex;
-            let steel_thickness = calcMaterial.material_thickness(selected_steel);
-            let steel_density = calcMaterial.material_density(selected_steel);
-            let amount = res.children[i].getElementsByTagName("input")[0].value;
-            for (let f = 0; f < user_details.length; f++) {
-                if (user_details[f].file_name === fileName) {
-                    user_details[f].set_amount(amount);
-                    user_details[f].set_density(steel_density);
-                    user_details[f].set_thickness(steel_thickness);
-                }
-            }
-            //console.log("Цена за прожиг: " + calcMaterial.material_cost_per_entry(selected_steel));
-            console.log(formula(i, selected_steel));
-        }
+    for (let i = 0; i < user_details.length; i++) {
+        let left_elements =  res.children[i].getElementsByClassName("left-params");
+        let right_elements =  res.children[i].getElementsByClassName("right-params");
+
+        let amount_val = right_elements[right_elements.length - 1].children[0].value;
+        let selected_steel = left_elements[left_elements.length - 1].children[0].selectedIndex;
+        let thickness_val = calcMaterial.material_thickness(selected_steel);
+        let density_val = calcMaterial.material_density(selected_steel);
+
+        user_details[i].set_amount(amount_val);
+        user_details[i].set_thickness(thickness_val);
+        user_details[i].set_density(density_val);
+
+        let total_cost = parseInt(formula(i, selected_steel));
+        let single_cost = parseInt(total_cost / user_details[i].get_amount());
+
+        right_elements[0].innerHTML = "Вес 1 шт.: <span>" + parseFloat(user_details[i].single_weight()).toFixed(3) + " кг.</span>";
+        right_elements[1].innerHTML = "Общий вес: <span>" + parseFloat(user_details[i].total_weight()).toFixed(3) + " кг.</span>";
+        right_elements[2].innerHTML = "Стоимость за шт: <span class='badge badge-pill badge-primary'>" + single_cost + " сом</span>";
+        right_elements[3].innerHTML = "Общая стоимость: <span class='badge badge-pill badge-primary'>" + total_cost + " сом</span>";
     }
 }
 

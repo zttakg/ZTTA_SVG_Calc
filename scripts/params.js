@@ -62,39 +62,12 @@ function buildMaterialsTable(data_array) {
         }
     }
 
-    //let t_foot = table.createTFoot();
-    //let footer_row1 = t_foot.insertRow(0);
-    //let footer_row2 = t_foot.insertRow(1);
-    /*
-    for (let i = 0; i < headers.length; i++) {
-        let th = document.createElement("th");
-        if (i < 4) {
-            th.innerHTML = headers[i];
-            th.setAttribute("rowspan", "2");
-            footer_row1.appendChild(th);
-        } else {
-            for (let j = 0; j < subheaders.length; j++) {
-                let th = document.createElement("th");
-                th.innerHTML = subheaders[j];
-                footer_row1.appendChild(th);
-            }
-        }
-    }
-
-    for (let i = 4; i < headers.length; i++) {
-        let th = document.createElement("th");
-        th.setAttribute("colspan", "3");
-        th.innerHTML = headers[i];
-        footer_row2.appendChild(th);
-    }
-    */
-
     for (let i = 0; i < data_array.length; i++) {
         let tr = t_body.insertRow(-1);
         for (let j = 0; j < 13; j++) {
             let t_cell = tr.insertCell(-1);
             if (j === 0) {
-                if (data_array[i].id.toString().substring(0,2) === "CR") {
+                if (data_array[i].m_id.toString().substring(0,2) === "CR") {
                     t_cell.innerHTML = steel_name[0];
                 } else {
                     t_cell.innerHTML = steel_name[1];
@@ -104,7 +77,12 @@ function buildMaterialsTable(data_array) {
             } else if (j === 2) {
                 t_cell.innerHTML = data_array[i].density;
             } else if (j === 3) {
-                t_cell.innerHTML = data_array[i].cost_per_kg;
+                let cost_kg = document.createElement('input');
+                cost_kg.type = "number";
+                cost_kg.min = "0";
+                cost_kg.value = data_array[i].cost_per_kg;
+                t_cell.innerHTML = "";
+                t_cell.appendChild(cost_kg);
             } else if (j === 4) {
                 t_cell.innerHTML = data_array[i].tech_processes[0].gas_cost_per_hour;
             } else if (j === 5) {

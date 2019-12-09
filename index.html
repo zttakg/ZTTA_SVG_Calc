@@ -6,7 +6,6 @@
     <title>Calculation</title>
     <link rel="icon" href="assets/icon.png">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/index_style.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="scripts/load.js"></script>
     <script src="scripts/jquery-3.4.1.min.js"></script>
@@ -14,7 +13,7 @@
     <script src="scripts/bootstrap.min.js"></script>
 </head>
 <body onload="initialize()">
-<div class="card">
+<div class="card container">
     <div class="card-body">
         <div class="container-fluid">
             <div class="row">
@@ -33,11 +32,14 @@
                 <div class="col-sm">
                     <button type="button" id="calc_this" class="btn btn-primary" onclick="calculation()" style="visibility: hidden">Посчитать стоимость</button>
                 </div>
+                <div class="col-sm">
+                    <a class="btn btn-outline-secondary" href="pages/parameters.html" target="_blank" role="button">Материалы</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container-fluid" id="load_result"></div>
+<div class="container" id="load_result"></div>
 </body>
 </html>
