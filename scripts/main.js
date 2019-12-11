@@ -19,8 +19,8 @@ let steel_name = ["Сталь х/к", "Сталь г/к"];
 let labels = ["Коэфициент жадности","Время подготовки станка (мин)", "Время программирования (мин)", "Стоимость подготовки материала (сом)","Стоимость программирования (сом)"];
 let const_headers = ["", "Плазменная резка","Лазерная резка","Газовая резка"];
 let const_subheaders = ["Стоимость расходных материалов", "Базовая стоимость"];
-//let tooltips = ["Сохранённые значения будут доступны, \nпока страница не перезагружена", "Сохранённые значения будут записаны \nв файл и доступны всем пользователям.\nДля сохранения потребуется ввести пароль"];
-//let values = ["Сохранить", "Сохранить в файл"];
+let tooltips = ["Сохранённые значения будут доступны, \nпока страница не перезагружена", "Сохранённые значения будут записаны в файл. \nДля дальнейшего использования потребуется загрузить этот файл на сервер"];
+let values = ["Сохранить", "Сохранить в файл"];
 let ids = ["profitRatio", "prepareTime", "programmingTime", "prepareCost", "programmingCost"];
 
 let flag = false;
@@ -44,6 +44,7 @@ function show_table() {
         let container = document.getElementById("materials");
         if (container.childElementCount === 0) {
             container.appendChild(matObj.get_materials_table());
+            container.appendChild(matObj.get_save_menu());
             createDataTable("data_table");
         }
     }
@@ -81,6 +82,15 @@ class Material {
     constructor(raw_array) {
         this.materials_array = raw_array;
         this.build_table();
+        this.build_toolbar();
+    }
+
+    get_mat_array() {
+        return this.materials_array;
+    }
+
+    replace_metal_cost(index, value) {
+        this.materials_array[index].cost_per_kg = value;
     }
 
     build_table() {
@@ -129,6 +139,7 @@ class Material {
                     t_cell.innerHTML = this.materials_array[i].density;
                 } else if (j === 3) {
                     let cost_kg = document.createElement('input');
+                    cost_kg.classList.add("metal-cost");
                     cost_kg.type = "number";
                     cost_kg.min = "0";
                     cost_kg.value = this.materials_array[i].cost_per_kg;
@@ -155,11 +166,65 @@ class Material {
                 }
             }
         }
+
         this.mat_table = table;
     }
 
     get_materials_table() {
         return this.mat_table;
+    }
+
+    build_toolbar() {
+        let save_toolbar = document.createElement("div");
+        save_toolbar.setAttribute("class", "mt-1 mb-2");
+
+        let btn1 = document.createElement("a");
+        let btn2 = document.createElement("button");
+        btn1.classList.add("btn");
+        btn1.classList.add("btn-outline-danger");
+        btn1.classList.add("mr-2");
+        btn2.classList.add("btn");
+        btn2.classList.add("btn-secondary");
+        btn2.classList.add("mr-2");
+        btn1.setAttribute("role", "button");
+        btn1.setAttribute("data-toggle", "tooltip");
+        btn1.setAttribute("data-placement", "top");
+        btn1.setAttribute("title", tooltips[1]);
+        btn1.setAttribute("id", "save_to_file");
+        btn2.setAttribute("data-toggle", "tooltip");
+        btn2.setAttribute("data-placement", "top");
+        btn2.setAttribute("title", tooltips[0]);
+        btn2.setAttribute("id", "save_temporary");
+
+        btn2.onclick = function() {
+            let table = document.getElementById("data_table");
+            let cost_values = table.getElementsByClassName("metal-cost");
+            for (let i = 0; i < cost_values.length; i++) {
+                matObj.replace_metal_cost(i, cost_values[i].value);
+            }
+        };
+
+        btn1.onclick = function() {
+            let table = document.getElementById("data_table");
+            let cost_values = table.getElementsByClassName("metal-cost");
+            for (let i = 0; i < cost_values.length; i++) {
+                matObj.replace_metal_cost(i, cost_values[i].value);
+            }
+            let json_obj = JSON.stringify({"materials": matObj.get_mat_array()});
+            btn1.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(json_obj));
+            btn1.setAttribute('download', 'materials.json');
+        };
+
+        btn1.innerHTML = values[1];
+        btn2.innerHTML = values[0];
+
+        save_toolbar.appendChild(btn2);
+        save_toolbar.appendChild(btn1);
+        this.save_menu = save_toolbar;
+    }
+
+    get_save_menu() {
+        return this.save_menu;
     }
 }
 
@@ -288,14 +353,12 @@ function initialize() {
     loadJson(materialList, function (response) {
         let raw_array  = JSON.parse(response);
         calcMaterial = new CalcMetal(raw_array[Object.keys(raw_array)[0]]);
-        //matObj = new Material(raw_array[Object.keys(raw_array)[0]]);
         matObj = new Material(calcMaterial.material);
         load_mat_flag = true;
     });
     loadJson(constants, function (response) {
         let raw_array  = JSON.parse(response);
         calcConsts = new CalcConst(raw_array[Object.keys(raw_array)[0]]);
-        //constObj = new Constants(raw_array[Object.keys(raw_array)[0]]);
         constObj = new Constants(calcConsts.consts);
         load_const_flag = true;
     });
