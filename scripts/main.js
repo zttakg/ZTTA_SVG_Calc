@@ -78,286 +78,6 @@ function createDataTable(mTable) {
     });
 }
 
-class Material {
-    constructor(raw_array) {
-        this.materials_array = raw_array;
-        this.build_table();
-        this.build_toolbar();
-    }
-
-    get_mat_array() {
-        return this.materials_array;
-    }
-
-    replace_metal_cost(index, value) {
-        this.materials_array[index].cost_per_kg = value;
-    }
-
-    build_table() {
-        let table = document.createElement("table");
-        table.setAttribute("id", "data_table");
-        table.setAttribute("class", "table table-striped table-bordered");
-        table.setAttribute("style", "width: 100%;");
-
-        let t_head = table.createTHead();
-        let t_body = table.createTBody();
-        let header_row1 = t_head.insertRow(0);
-        let header_row2 = t_head.insertRow(1);
-
-        for (let i = 0; i < headers.length; i++) {
-            let th = document.createElement("th");
-            th.innerHTML = headers[i];
-            if (i < 4) {
-                th.setAttribute("rowspan", "2");
-            } else {
-                th.setAttribute("colspan", "3");
-            }
-            header_row1.appendChild(th);
-        }
-
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < subheaders.length; j++) {
-                let th = document.createElement("th");
-                th.innerHTML = subheaders[j];
-                header_row2.appendChild(th);
-            }
-        }
-
-        for (let i = 0; i < this.materials_array.length; i++) {
-            let tr = t_body.insertRow(-1);
-            for (let j = 0; j < 13; j++) {
-                let t_cell = tr.insertCell(-1);
-                if (j === 0) {
-                    if (this.materials_array[i].m_id.toString().substring(0,2) === "CR") {
-                        t_cell.innerHTML = steel_name[0];
-                    } else {
-                        t_cell.innerHTML = steel_name[1];
-                    }
-                } else if (j === 1) {
-                    t_cell.innerHTML = this.materials_array[i].thickness;
-                } else if (j === 2) {
-                    t_cell.innerHTML = this.materials_array[i].density;
-                } else if (j === 3) {
-                    let cost_kg = document.createElement('input');
-                    cost_kg.classList.add("metal-cost");
-                    cost_kg.type = "number";
-                    cost_kg.min = "0";
-                    cost_kg.value = this.materials_array[i].cost_per_kg;
-                    t_cell.innerHTML = "";
-                    t_cell.appendChild(cost_kg);
-                } else if (j === 4) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[0].gas_cost_per_hour;
-                } else if (j === 5) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[0].cut_speed;
-                } else if (j === 6) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[0].cost_per_entry;
-                } else if (j === 7) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[1].gas_cost_per_hour;
-                } else if (j === 8) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[1].cut_speed;
-                } else if (j === 9) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[1].cost_per_entry;
-                } else if (j === 10) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[2].gas_cost_per_hour;
-                } else if (j === 11) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[2].cut_speed;
-                } else if (j === 12) {
-                    t_cell.innerHTML = this.materials_array[i].tech_processes[2].cost_per_entry;
-                }
-            }
-        }
-
-        this.mat_table = table;
-    }
-
-    get_materials_table() {
-        return this.mat_table;
-    }
-
-    build_toolbar() {
-        let save_toolbar = document.createElement("div");
-        save_toolbar.setAttribute("class", "mt-1 mb-2");
-
-        let btn1 = document.createElement("a");
-        let btn2 = document.createElement("button");
-        btn1.classList.add("btn");
-        btn1.classList.add("btn-outline-danger");
-        btn1.classList.add("mr-2");
-        btn2.classList.add("btn");
-        btn2.classList.add("btn-secondary");
-        btn2.classList.add("mr-2");
-        btn1.setAttribute("role", "button");
-        btn1.setAttribute("data-toggle", "tooltip");
-        btn1.setAttribute("data-placement", "top");
-        btn1.setAttribute("title", tooltips[1]);
-        btn1.setAttribute("id", "save_to_file");
-        btn2.setAttribute("data-toggle", "tooltip");
-        btn2.setAttribute("data-placement", "top");
-        btn2.setAttribute("title", tooltips[0]);
-        btn2.setAttribute("id", "save_temporary");
-
-        btn2.onclick = function() {
-            let table = document.getElementById("data_table");
-            let cost_values = table.getElementsByClassName("metal-cost");
-            for (let i = 0; i < cost_values.length; i++) {
-                matObj.replace_metal_cost(i, cost_values[i].value);
-            }
-        };
-
-        btn1.onclick = function() {
-            let table = document.getElementById("data_table");
-            let cost_values = table.getElementsByClassName("metal-cost");
-            for (let i = 0; i < cost_values.length; i++) {
-                matObj.replace_metal_cost(i, cost_values[i].value);
-            }
-            let json_obj = JSON.stringify({"materials": matObj.get_mat_array()});
-            btn1.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(json_obj));
-            btn1.setAttribute('download', 'materials.json');
-        };
-
-        btn1.innerHTML = values[1];
-        btn2.innerHTML = values[0];
-
-        save_toolbar.appendChild(btn2);
-        save_toolbar.appendChild(btn1);
-        this.save_menu = save_toolbar;
-    }
-
-    get_save_menu() {
-        return this.save_menu;
-    }
-}
-
-class Constants {
-    constructor(json_array) {
-        this.consts = json_array;
-        this.build_toolbar();
-        this.build_form();
-    }
-
-    build_form() {
-        let container = document.createElement("div");
-        container.setAttribute("class", "container mt-4");
-
-        let table_elem = document.createElement("table");
-        table_elem.setAttribute("id", "const_table");
-        table_elem.setAttribute("class", "table table-striped table-bordered");
-
-        let t_head = table_elem.createTHead();
-        let t_body = table_elem.createTBody();
-        let header_row = t_head.insertRow(-1);
-
-        for (let k = 0; k < const_headers.length; k++) {
-            let th = document.createElement("th");
-            th.innerHTML = const_headers[k];
-            header_row.appendChild(th);
-        }
-
-        for (let i = 0; i < 2; i++) {
-            let tr = t_body.insertRow(-1);
-            for (let j = 0; j < 4; j++) {
-                let t_cell = tr.insertCell(-1);
-                if (i === 0) {
-                    if (j === 0) {
-                        t_cell.innerHTML = const_subheaders[i];
-                    } else if (j === 1) {
-                        t_cell.innerHTML = this.consts.tech_process[0].expandable_materials_cost;
-                    } else if (j === 2) {
-                        t_cell.innerHTML = this.consts.tech_process[1].expandable_materials_cost;
-                    } else if (j === 3) {
-                        t_cell.innerHTML = this.consts.tech_process[2].expandable_materials_cost;
-                    }
-                } else if (i === 1) {
-                    if (j === 0) {
-                        t_cell.innerHTML = const_subheaders[i];
-                    } else if (j === 1) {
-                        t_cell.innerHTML = this.consts.tech_process[0].basic_cost;
-                    } else if (j === 2) {
-                        t_cell.innerHTML = this.consts.tech_process[1].basic_cost;
-                    } else if (j === 3) {
-                        t_cell.innerHTML = this.consts.tech_process[2].basic_cost;
-                    }
-                }
-            }
-        }
-
-        container.appendChild(table_elem);
-
-        let form_element = document.createElement("form");
-
-        for (let i = 0; i < 6; i++) {
-            let row_div = document.createElement("div");
-            row_div.setAttribute("class", "form-group row");
-
-            if (i < 5) {
-                let label_elem = document.createElement("label");
-                label_elem.setAttribute("for", ids[i]);
-                label_elem.setAttribute("class", "col-sm-5 col-form-label");
-                label_elem.innerText = labels[i];
-
-                let sub_div = document.createElement("div");
-                sub_div.classList.add("col-sm-7");
-
-                let input_elem = document.createElement("input");
-                input_elem.setAttribute("type", "number");
-                input_elem.classList.add("form-control");
-                input_elem.readOnly = true;
-                input_elem.setAttribute("id", ids[i]);
-                input_elem.min = "1";
-                if (i === 0) {
-                    input_elem.value = this.consts.profit_ratio;
-                    input_elem.readOnly = false;
-                } else if (i === 1) {
-                    input_elem.value = this.consts.machine_prepare_time_min;
-                } else if (i === 2) {
-                    input_elem.value = this.consts.programming_time;
-                } else if (i === 3) {
-                    input_elem.value = this.consts.material_prepare_cost;
-                } else if (i === 4) {
-                    input_elem.value = this.consts.programming_cost;
-                }
-
-                sub_div.appendChild(input_elem);
-                row_div.appendChild(label_elem);
-                row_div.appendChild(sub_div);
-            }
-            form_element.appendChild(row_div);
-            container.appendChild(form_element);
-        }
-
-        container.appendChild(this.get_save_button());
-
-        this.const_form = container;
-    }
-
-    get_consts_form() {
-        return this.const_form;
-    }
-
-    build_toolbar() {
-        let save_btn = document.createElement("button");
-        save_btn.classList.add("btn");
-        save_btn.classList.add("btn-secondary");
-        save_btn.classList.add("mt-0");
-        save_btn.setAttribute("data-toggle", "tooltip");
-        save_btn.setAttribute("data-placement", "top");
-        save_btn.setAttribute("title", tooltips[0]);
-        save_btn.setAttribute("id", "save_temp_const");
-
-        save_btn.onclick = function() {
-            let profit_val = document.getElementById("profitRatio").value;
-            calcConsts.replace_profit_value(profit_val);
-        };
-        save_btn.innerHTML = values[0];
-
-        this.save_button = save_btn;
-    }
-
-    get_save_button() {
-        return this.save_button;
-    }
-}
-
 function initialize() {
     loadJson(materialList, function (response) {
         let raw_array  = JSON.parse(response);
@@ -817,6 +537,286 @@ class CalcMetal {
             }
         }
     }                                             //скорость реза
+}
+
+class Material {
+    constructor(raw_array) {
+        this.materials_array = raw_array;
+        this.build_table();
+        this.build_toolbar();
+    }
+
+    get_mat_array() {
+        return this.materials_array;
+    }
+
+    replace_metal_cost(index, value) {
+        this.materials_array[index].cost_per_kg = value;
+    }
+
+    build_table() {
+        let table = document.createElement("table");
+        table.setAttribute("id", "data_table");
+        table.setAttribute("class", "table table-striped table-bordered");
+        table.setAttribute("style", "width: 100%;");
+
+        let t_head = table.createTHead();
+        let t_body = table.createTBody();
+        let header_row1 = t_head.insertRow(0);
+        let header_row2 = t_head.insertRow(1);
+
+        for (let i = 0; i < headers.length; i++) {
+            let th = document.createElement("th");
+            th.innerHTML = headers[i];
+            if (i < 4) {
+                th.setAttribute("rowspan", "2");
+            } else {
+                th.setAttribute("colspan", "3");
+            }
+            header_row1.appendChild(th);
+        }
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < subheaders.length; j++) {
+                let th = document.createElement("th");
+                th.innerHTML = subheaders[j];
+                header_row2.appendChild(th);
+            }
+        }
+
+        for (let i = 0; i < this.materials_array.length; i++) {
+            let tr = t_body.insertRow(-1);
+            for (let j = 0; j < 13; j++) {
+                let t_cell = tr.insertCell(-1);
+                if (j === 0) {
+                    if (this.materials_array[i].m_id.toString().substring(0,2) === "CR") {
+                        t_cell.innerHTML = steel_name[0];
+                    } else {
+                        t_cell.innerHTML = steel_name[1];
+                    }
+                } else if (j === 1) {
+                    t_cell.innerHTML = this.materials_array[i].thickness;
+                } else if (j === 2) {
+                    t_cell.innerHTML = this.materials_array[i].density;
+                } else if (j === 3) {
+                    let cost_kg = document.createElement('input');
+                    cost_kg.classList.add("metal-cost");
+                    cost_kg.type = "number";
+                    cost_kg.min = "0";
+                    cost_kg.value = this.materials_array[i].cost_per_kg;
+                    t_cell.innerHTML = "";
+                    t_cell.appendChild(cost_kg);
+                } else if (j === 4) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[0].gas_cost_per_hour;
+                } else if (j === 5) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[0].cut_speed;
+                } else if (j === 6) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[0].cost_per_entry;
+                } else if (j === 7) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[1].gas_cost_per_hour;
+                } else if (j === 8) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[1].cut_speed;
+                } else if (j === 9) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[1].cost_per_entry;
+                } else if (j === 10) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[2].gas_cost_per_hour;
+                } else if (j === 11) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[2].cut_speed;
+                } else if (j === 12) {
+                    t_cell.innerHTML = this.materials_array[i].tech_processes[2].cost_per_entry;
+                }
+            }
+        }
+
+        this.mat_table = table;
+    }
+
+    get_materials_table() {
+        return this.mat_table;
+    }
+
+    build_toolbar() {
+        let save_toolbar = document.createElement("div");
+        save_toolbar.setAttribute("class", "mt-1 mb-2");
+
+        let btn1 = document.createElement("a");
+        let btn2 = document.createElement("button");
+        btn1.classList.add("btn");
+        btn1.classList.add("btn-outline-danger");
+        btn1.classList.add("mr-2");
+        btn2.classList.add("btn");
+        btn2.classList.add("btn-secondary");
+        btn2.classList.add("mr-2");
+        btn1.setAttribute("role", "button");
+        btn1.setAttribute("data-toggle", "tooltip");
+        btn1.setAttribute("data-placement", "top");
+        btn1.setAttribute("title", tooltips[1]);
+        btn1.setAttribute("id", "save_to_file");
+        btn2.setAttribute("data-toggle", "tooltip");
+        btn2.setAttribute("data-placement", "top");
+        btn2.setAttribute("title", tooltips[0]);
+        btn2.setAttribute("id", "save_temporary");
+
+        btn2.onclick = function() {
+            let table = document.getElementById("data_table");
+            let cost_values = table.getElementsByClassName("metal-cost");
+            for (let i = 0; i < cost_values.length; i++) {
+                matObj.replace_metal_cost(i, cost_values[i].value);
+            }
+        };
+
+        btn1.onclick = function() {
+            let table = document.getElementById("data_table");
+            let cost_values = table.getElementsByClassName("metal-cost");
+            for (let i = 0; i < cost_values.length; i++) {
+                matObj.replace_metal_cost(i, cost_values[i].value);
+            }
+            let json_obj = JSON.stringify({"materials": matObj.get_mat_array()});
+            btn1.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(json_obj));
+            btn1.setAttribute('download', 'materials.json');
+        };
+
+        btn1.innerHTML = values[1];
+        btn2.innerHTML = values[0];
+
+        save_toolbar.appendChild(btn2);
+        save_toolbar.appendChild(btn1);
+        this.save_menu = save_toolbar;
+    }
+
+    get_save_menu() {
+        return this.save_menu;
+    }
+}
+
+class Constants {
+    constructor(json_array) {
+        this.consts = json_array;
+        this.build_toolbar();
+        this.build_form();
+    }
+
+    build_form() {
+        let container = document.createElement("div");
+        container.setAttribute("class", "container mt-4");
+
+        let table_elem = document.createElement("table");
+        table_elem.setAttribute("id", "const_table");
+        table_elem.setAttribute("class", "table table-striped table-bordered");
+
+        let t_head = table_elem.createTHead();
+        let t_body = table_elem.createTBody();
+        let header_row = t_head.insertRow(-1);
+
+        for (let k = 0; k < const_headers.length; k++) {
+            let th = document.createElement("th");
+            th.innerHTML = const_headers[k];
+            header_row.appendChild(th);
+        }
+
+        for (let i = 0; i < 2; i++) {
+            let tr = t_body.insertRow(-1);
+            for (let j = 0; j < 4; j++) {
+                let t_cell = tr.insertCell(-1);
+                if (i === 0) {
+                    if (j === 0) {
+                        t_cell.innerHTML = const_subheaders[i];
+                    } else if (j === 1) {
+                        t_cell.innerHTML = this.consts.tech_process[0].expandable_materials_cost;
+                    } else if (j === 2) {
+                        t_cell.innerHTML = this.consts.tech_process[1].expandable_materials_cost;
+                    } else if (j === 3) {
+                        t_cell.innerHTML = this.consts.tech_process[2].expandable_materials_cost;
+                    }
+                } else if (i === 1) {
+                    if (j === 0) {
+                        t_cell.innerHTML = const_subheaders[i];
+                    } else if (j === 1) {
+                        t_cell.innerHTML = this.consts.tech_process[0].basic_cost;
+                    } else if (j === 2) {
+                        t_cell.innerHTML = this.consts.tech_process[1].basic_cost;
+                    } else if (j === 3) {
+                        t_cell.innerHTML = this.consts.tech_process[2].basic_cost;
+                    }
+                }
+            }
+        }
+
+        container.appendChild(table_elem);
+
+        let form_element = document.createElement("form");
+
+        for (let i = 0; i < 6; i++) {
+            let row_div = document.createElement("div");
+            row_div.setAttribute("class", "form-group row");
+
+            if (i < 5) {
+                let label_elem = document.createElement("label");
+                label_elem.setAttribute("for", ids[i]);
+                label_elem.setAttribute("class", "col-sm-5 col-form-label");
+                label_elem.innerText = labels[i];
+
+                let sub_div = document.createElement("div");
+                sub_div.classList.add("col-sm-7");
+
+                let input_elem = document.createElement("input");
+                input_elem.setAttribute("type", "number");
+                input_elem.classList.add("form-control");
+                input_elem.readOnly = true;
+                input_elem.setAttribute("id", ids[i]);
+                input_elem.min = "1";
+                if (i === 0) {
+                    input_elem.value = this.consts.profit_ratio;
+                    input_elem.readOnly = false;
+                } else if (i === 1) {
+                    input_elem.value = this.consts.machine_prepare_time_min;
+                } else if (i === 2) {
+                    input_elem.value = this.consts.programming_time;
+                } else if (i === 3) {
+                    input_elem.value = this.consts.material_prepare_cost;
+                } else if (i === 4) {
+                    input_elem.value = this.consts.programming_cost;
+                }
+
+                sub_div.appendChild(input_elem);
+                row_div.appendChild(label_elem);
+                row_div.appendChild(sub_div);
+            }
+            form_element.appendChild(row_div);
+            container.appendChild(form_element);
+        }
+
+        container.appendChild(this.get_save_button());
+
+        this.const_form = container;
+    }
+
+    get_consts_form() {
+        return this.const_form;
+    }
+
+    build_toolbar() {
+        let save_btn = document.createElement("button");
+        save_btn.classList.add("btn");
+        save_btn.classList.add("btn-secondary");
+        save_btn.classList.add("mt-0");
+        save_btn.setAttribute("data-toggle", "tooltip");
+        save_btn.setAttribute("data-placement", "top");
+        save_btn.setAttribute("title", tooltips[0]);
+        save_btn.setAttribute("id", "save_temp_const");
+
+        save_btn.onclick = function() {
+            let profit_val = document.getElementById("profitRatio").value;
+            calcConsts.replace_profit_value(profit_val);
+        };
+        save_btn.innerHTML = values[0];
+
+        this.save_button = save_btn;
+    }
+
+    get_save_button() {
+        return this.save_button;
+    }
 }
 
 
