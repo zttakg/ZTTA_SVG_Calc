@@ -231,6 +231,7 @@ class Material {
 class Constants {
     constructor(json_array) {
         this.consts = json_array;
+        this.build_toolbar();
         this.build_form();
     }
 
@@ -305,6 +306,7 @@ class Constants {
                 input_elem.min = "1";
                 if (i === 0) {
                     input_elem.value = this.consts.profit_ratio;
+                    input_elem.readOnly = false;
                 } else if (i === 1) {
                     input_elem.value = this.consts.machine_prepare_time_min;
                 } else if (i === 2) {
@@ -318,34 +320,41 @@ class Constants {
                 sub_div.appendChild(input_elem);
                 row_div.appendChild(label_elem);
                 row_div.appendChild(sub_div);
-            } /*else {
-                for (let j = 0; j < 2; j++) {
-                    let btn = document.createElement("button");
-                    btn.setAttribute("type", "button");
-                    btn.setAttribute("class", "btn mb-2 mr-2");
-                    btn.setAttribute("data-toggle", "tooltip");
-                    btn.setAttribute("data-placement", "top");
-                    btn.setAttribute("title", tooltips[j]);
-                    if (j === 0) {
-                        btn.classList.add("btn-primary");
-                    } else {
-                        btn.classList.add("btn-outline-danger");
-                    }
-                    btn.innerText = values[j];
-                    row_div.classList.add("float-right");
-                    row_div.appendChild(btn);
-                }
             }
-            */
             form_element.appendChild(row_div);
             container.appendChild(form_element);
         }
+
+        container.appendChild(this.get_save_button());
 
         this.const_form = container;
     }
 
     get_consts_form() {
         return this.const_form;
+    }
+
+    build_toolbar() {
+        let save_btn = document.createElement("button");
+        save_btn.classList.add("btn");
+        save_btn.classList.add("btn-secondary");
+        save_btn.classList.add("mt-0");
+        save_btn.setAttribute("data-toggle", "tooltip");
+        save_btn.setAttribute("data-placement", "top");
+        save_btn.setAttribute("title", tooltips[0]);
+        save_btn.setAttribute("id", "save_temp_const");
+
+        save_btn.onclick = function() {
+            let profit_val = document.getElementById("profitRatio").value;
+            calcConsts.replace_profit_value(profit_val);
+        };
+        save_btn.innerHTML = values[0];
+
+        this.save_button = save_btn;
+    }
+
+    get_save_button() {
+        return this.save_button;
     }
 }
 
@@ -734,6 +743,10 @@ class UserFile {
 
 class CalcConst {
     constructor(consts_array) { this.consts = consts_array;}
+
+    replace_profit_value(value) {
+        this.consts.profit_ratio = value;
+    }
 
     profit() { return this.consts.profit_ratio; }                           //коэф. жадности
     prepare_time() { return this.consts.machine_prepare_time; }             //время подготовки
