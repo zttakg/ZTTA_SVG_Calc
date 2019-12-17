@@ -36,6 +36,22 @@ function startPoint() {
     initialize();
 }
 
+function initialize() {
+    loadJson(materialList, function (response) {
+        let raw_array  = JSON.parse(response);
+        calcMaterial = new CalcMetal(raw_array[Object.keys(raw_array)[0]]);
+        matObj = new Material(calcMaterial.material);
+        load_mat_flag = true;
+    });
+    loadJson(constants, function (response) {
+        let raw_array  = JSON.parse(response);
+        calcConsts = new CalcConst(raw_array[Object.keys(raw_array)[0]]);
+        constObj = new Constants(calcConsts.consts);
+        load_const_flag = true;
+    });
+    processSelector();
+}
+
 function show_table() {
     if (load_mat_flag !== true) {
         startPoint();
@@ -76,22 +92,6 @@ function createDataTable(mTable) {
             }
         });
     });
-}
-
-function initialize() {
-    loadJson(materialList, function (response) {
-        let raw_array  = JSON.parse(response);
-        calcMaterial = new CalcMetal(raw_array[Object.keys(raw_array)[0]]);
-        matObj = new Material(calcMaterial.material);
-        load_mat_flag = true;
-    });
-    loadJson(constants, function (response) {
-        let raw_array  = JSON.parse(response);
-        calcConsts = new CalcConst(raw_array[Object.keys(raw_array)[0]]);
-        constObj = new Constants(calcConsts.consts);
-        load_const_flag = true;
-    });
-    processSelector();
 }
 
 function processSelector() {
