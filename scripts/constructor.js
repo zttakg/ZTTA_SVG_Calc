@@ -1339,7 +1339,131 @@ function createObject() {
     }
 
     builded_objects.push(new SvgObject(params[0], params[1], params[2], params[3], params[5], params[4], params[6]));
-    objProcessing();
+    //objProcessing();
+    objectProcessing();
+}
+
+function objectProcessing() {
+    let file_container = document.getElementById('constructor_results');
+    file_container.classList.add("mt-3");
+    file_container.classList.add("container-fluid");
+    file_container.innerHTML = "";
+
+    for (let i = 0; i < builded_objects.length; i++) {
+        let top_level_container = document.createElement("div");
+        top_level_container.classList.add("mb-2");
+
+        let media_container = document.createElement("div");
+        media_container.classList.add("row");
+        media_container.classList.add("border");
+        media_container.classList.add("position-relative");
+        media_container.classList.add("media");
+        media_container.classList.add("rounded");
+        media_container.classList.add("bg-light");
+
+        let column1 = document.createElement("div");
+        column1.classList.add("col-sm-3");
+        column1.classList.add("mt-2");
+        column1.classList.add("mb-3");
+
+        let sub_container1 = document.createElement("div");
+        sub_container1.classList.add("container");
+
+        let title = document.createElement("h5");
+        title.classList.add("float-left");
+        title.innerText = builded_objects[i].obj_name;
+
+        sub_container1.appendChild(title);
+        sub_container1.appendChild(builded_objects[i].obj_img);
+        column1.appendChild(sub_container1);
+
+        let column2 = document.createElement("div");
+        column2.classList.add("col-sm");
+        column2.classList.add("zm-1");
+
+        let list1 = document.createElement("ul");
+        list1.classList.add("pl-2");
+
+        for (let j = 0; j < 6; j++) {
+            let list_item = document.createElement("li");
+            list_item.setAttribute("class", "d-flex justify-content-between align-items-center left-params");
+            if (j === 0) {
+                list_item.innerHTML = "Размер заготовки: <span>" + builded_objects[i].get_obj_size() + " мм.</span>";
+            }
+            if (j === 1) {
+                list_item.innerHTML = "Площадь:  <span>" + builded_objects[i].obj_area + " кв.м.</span>";
+            }
+            if (j === 2) {
+                list_item.innerHTML = "Длина реза: <span>" + builded_objects[i].obj_cut_length + " м.</span>";
+            }
+            if (j === 3) {
+                list_item.innerHTML = "Кол-во прожигов: <span>" + builded_objects[i].obj_entries + "</span>";
+            }
+            if (j === 4) {
+                list_item.innerHTML = "Общий вес остатков: ";
+            }
+            if (j === 5) {
+                list_item.innerHTML = "Материал: ";
+                list_item.appendChild(buildSelector());
+                list_item.classList.add("mt-1");
+            }
+            list_item.setAttribute("id", "left" + j);
+            list1.appendChild(list_item);
+        }
+
+        column2.appendChild(list1);
+
+        let column3 = document.createElement("div");
+        column3.classList.add("col-sm");
+        column3.classList.add("zm-1");
+
+        let list2 = document.createElement("ul");
+        list2.classList.add("pl-2");
+
+        for (let i = 0; i < 6; i++) {
+            let list_item = document.createElement("li");
+            list_item.setAttribute("class", "d-flex justify-content-between align-items-center right-params");
+            if (i === 0) {
+                list_item.innerText = "Вес 1 шт.: ";
+            }
+            if (i === 1) {
+                list_item.innerText = "Общий вес: ";
+            }
+            if (i === 2) {
+                list_item.innerText = "Стоимость за шт: ";
+            }
+            if (i === 3) {
+                list_item.innerText = "Общая стоимость: ";
+            }
+            if (i === 4) {
+                list_item.innerText = "Стоимость остатков: ";
+            }
+            if (i === 5) {
+                let amount = document.createElement('input');
+                amount.type = "number";
+                amount.min = "1";
+                amount.value = "1";
+                amount.classList.add("ml-2");
+                amount.setAttribute("style", "width: 30%");
+                list_item.innerHTML = "Количество: ";
+                list_item.appendChild(amount);
+                list_item.classList.add("mt-1");
+            }
+            list_item.setAttribute("id", "right" + i);
+            list2.appendChild(list_item);
+        }
+
+        column3.appendChild(list2);
+
+        media_container.appendChild(column1);
+        media_container.appendChild(column2);
+        media_container.appendChild(column3);
+        top_level_container.appendChild(media_container);
+        file_container.appendChild(top_level_container);
+    }
+
+    document.getElementById("calc_panel").style.visibility = "visible";
+    process_selector();
 }
 
 function objProcessing() {
@@ -1430,6 +1554,8 @@ function objProcessing() {
                 amount.type = "number";
                 amount.min = "1";
                 amount.value = "1";
+                amount.classList.add("ml-2");
+                amount.setAttribute("style", "width: 30%");
                 list_item.innerHTML = "Количество: ";
                 list_item.appendChild(amount);
                 list_item.classList.add("mt-1");

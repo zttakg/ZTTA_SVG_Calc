@@ -65,12 +65,12 @@
         <div class="tab-pane fade" id="generator" role="tabpanel" aria-labelledby="generator-tab">
             <div class="container mt-3">
                 <div class="row" id="m_figure">
-                    <div class="col">
+                    <div class="col-sm">
                         <div id="main_container"></div>
                     </div>
-                    <div class="col" >
-                        <div class="row nav-justified mb-3">
-                            <label for="figure_type_selector" class="col-form-label col-3">Тип фигуры:</label>
+                    <div class="col-sm" >
+                        <div class="row nav-justified mb-3 mt-3">
+                            <label for="figure_type_selector" class="col-form-label col-3">Фигура:</label>
                             <select class="form-control col mr-2" id="figure_type_selector" onchange="figureTypeChange()">
                                 <option>Прямоугольник</option>
                                 <option>Круг</option>
@@ -81,17 +81,17 @@
                         <div id="params_container"></div>
                     </div>
                 </div>
-                <div class="mt-3" id="calc_panel" style="visibility: collapse">
+                <div id="calc_panel" style="visibility: collapse">
                     <div class="card bg-light">
-                        <div class="card-body row nav-justified">
-                            <label for="tech_proc_selector" class="col-form-label col-2">Тех. процесс:</label>
-                            <select class="form-control col mr-3" id="tech_proc_selector" onchange="process_selector()">
+                        <div class="card-body row">
+                            <label for="tech_proc_selector" class="col-form-label col-sm-2 m-1 tp-label collapse">Тех. процесс:</label>
+                            <select class="form-control col-sm m-1" id="tech_proc_selector" onchange="process_selector()">
                                 <option>Плазменная резка</option>
                                 <option>Лазерная резка</option>
                                 <option>Газовая резка</option>
                             </select>
-                            <button type="button" onclick="calculate_svg()" class="btn btn-primary col-2 mr-3">Посчитать</button>
-                            <button type="button" onclick="clearObjects()" class="btn btn-secondary col-2 mr-3">Удалить все</button>
+                            <button type="button" onclick="calculate_svg()" class="btn btn-primary col-sm-2 m-1">Посчитать</button>
+                            <button type="button" onclick="clearObjects()" class="btn btn-secondary col-sm-2 m-1">Удалить все</button>
                         </div>
                     </div>
                     <div class="container" id="constructor_results">

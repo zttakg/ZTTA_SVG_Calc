@@ -276,6 +276,7 @@ function fileProcessing() {
 
 function buildSelector() {
     let sel = document.createElement("select");
+    sel.classList.add("ml-2");
     for (let i = 0; i < calcMaterial.ranged_array().length; i++) {
         let opt = document.createElement("option");
         opt.innerHTML = calcMaterial.material_name(i);
@@ -800,6 +801,7 @@ class Constants {
         save_btn.classList.add("btn");
         save_btn.classList.add("btn-secondary");
         save_btn.classList.add("mt-0");
+        save_btn.classList.add("mb-2");
         save_btn.setAttribute("data-toggle", "tooltip");
         save_btn.setAttribute("data-placement", "top");
         save_btn.setAttribute("title", tooltips[0]);
